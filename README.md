@@ -15,6 +15,8 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
   
 - Usage
 
+- Glimpse of Project
+
 <br>
 
 
@@ -62,7 +64,15 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
 - **Export Data** : Export your data (e.g., inventory or orders) to CSV files using the export functionality, allowing you to keep a backup or analyze the data externally.
 
 
+<br>
 
+## Glimpse of Project
+
+<br>
+
+- **Main interface**
+
+![image](https://github.com/user-attachments/assets/5b7259d5-7b8c-4671-88d7-ffc085b1f212)
 
 
 
