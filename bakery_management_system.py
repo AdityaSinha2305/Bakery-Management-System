@@ -17,13 +17,15 @@ def add_item():
                 order_dt = datetime.datetime.now()
                 order_name = input("Enter your order name : ")
                 quantity = input('Enter the qunatity of order customer want : ')
+                amount = input("Enter the amount of order : ")
                 
-                if name.isalpha() and order_name.isalpha() and quantity.isnumeric():
+                if name.isalpha() and order_name.isalpha() and quantity.isnumeric() and amount.isnumeric():
                     data = {
                         'Name' : name,
                         'Order_name' : order_name,
                         'Quantity' : quantity,
-                        'Order_date' : order_dt
+                        'Order_date' : order_dt,
+                        'Amount' : amount
                     }
 
                     # once data is valid come out of loop
@@ -97,12 +99,12 @@ def update(df):
                                     order_id = int(order_id)
                                     if order_id in list(df.index):
                                         print(df.iloc[[order_id]])
-                                        print("----------------------------------------------------")
+                                        print("---------------------------------------------------------------------------")
                                         print()
                                     else:
                                         print()
                                         print("Order id doesn't exist in the database")
-                                        print("-----------------------------------------")
+                                        print("------------------------------------------------")
                                         print()
                                     break
                                 else:
@@ -117,9 +119,9 @@ def update(df):
                             while True:
                                 index = input("Enter the order id you want to update : ")
                                 col = input("Enter the column you want to update : ")         
-                                new_col_value = input("Enter the new quantity value : ")
+                                new_col_value = input("Enter the new value : ")
 
-                                # This code is build for updating only quantity column as of now and not able to handle name column because new_col_value accepts only inetger value as of now
+                                # This code is build for updating only quantity and amount column as of now and not able to handle name column because new_col_value accepts only inetger value as of now
                                 # This part checks wheather each input is valid or not i.e index -> integer , col -> alphabets , new_col_value -> integer
                                 if index.isnumeric() and col.isalpha() and new_col_value.isnumeric():
 
@@ -129,17 +131,17 @@ def update(df):
                                         df.loc[index , col] = new_col_value
                                         print()
                                         print(f"{col} updated successfully ✅")
-                                        print("------------------------------------")
+                                        print("--------------------------------------------------------")
                                         print()
 
                                     elif index not in list(df.index):
                                         print(f"Order id {index} doesn't exists")
-                                        print("------------------------------------")
+                                        print("-------------------------------------------------------")
                                         print()
 
                                     else:
                                         print(f"{col} column doesn't exists")
-                                        print("-----------------------------------")
+                                        print("----------------------------------------------")
                                         print()
                                     
                                     break
@@ -151,7 +153,7 @@ def update(df):
                                     print()
                         
                         elif update_choice==4:
-                            print("-----------------------------------------------------")
+                            print("-------------------------------------------------")
                             break
 
                         else:
@@ -179,7 +181,7 @@ def update(df):
         else:
             # This part is for if ch is other than integer
             print("Select your choice from above two options")
-            print("----------------------------------------")
+            print("---------------------------------------------")
             print()
             update(df)
 
@@ -223,20 +225,20 @@ def base(df):
                 os.system('cls')
                 display(df)
                 print()
-                print("-------------------------------------")
+                print("-------------------------------------------------------------------")
                 print()
 
             elif choice==4:
                 os.system('cls')
                 if df.empty:
                     print("Buddy insert item first then export your data 😄")
-                    print("-----------------------------------------------------")
+                    print("-------------------------------------------------------")
                     print()
                 else:
                     os.system('cls')
                     df.to_csv('Customer.csv')
                     print("Data exported to excel file succesfully ✅")
-                    print("-----------------------------------------------")
+                    print("---------------------------------------------------")
                     print()
 
             elif choice==5:
