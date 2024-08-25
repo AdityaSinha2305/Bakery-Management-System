@@ -1,6 +1,6 @@
 # BakeryManagementSystem
 
-Welcome to the Bakery Management System! This project is a simple yet efficient system designed to manage the operations of a bakery. It allows you to add items, update orders, view order details, and export data to CSV files, ensuring that the bakery's workflow is smooth and well-organized.
+Welcome to the Bakery Management System! This project is a simple yet efficient system designed to manage the operations of a bakery. It allows you to add items, update orders, view order details, import data from Excel files, and export data to Excel files, ensuring that the bakery's workflow is smooth and well-organized.
 
 
 <br>
@@ -61,7 +61,9 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
   
 - **View Order Details** : Access detailed information about any order to review or verify the order's content.
   
-- **Export Data** : Export your data (e.g., inventory or orders) to CSV files using the export functionality, allowing you to keep a backup or analyze the data externally.
+- **Export Data** : Export your data (e.g., inventory or orders) to excel files using the export functionality, allowing you to keep a backup or analyze the data externally.
+
+- **Import Data** : Easily import your bakery data from Excel files to quickly populate your inventory or update orders.
 
 
 <br>
