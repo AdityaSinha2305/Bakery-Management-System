@@ -1,6 +1,5 @@
 # Bakery Management System
 
-
 import pandas as pd
 import datetime
 import os
@@ -25,7 +24,7 @@ def add_item():
                         'Name' : name,
                         'Order_name' : order_name,
                         'Quantity' : int(quantity),
-                        'Amount' : int(amount),
+                        'Amount' : float(amount),
                         'Order_date' : order_dt
                     }
 
@@ -196,6 +195,88 @@ def display(df):
         print(df)
 
 
+def save_data(df):
+    file_name = input("Name the file to save your data : ")
+    path = f'{file_name}.xlsx'
+    if os.path.exists(path):
+        print(f"{path} file already exists in current directory")
+        print()
+
+        while True:
+            override = input("Do you want to override the content of the file?\nPress Y to override or N to discard : ")
+            
+            if override.isalpha() and len(override)==1:
+                if override.lower()=='y':
+                    try:
+                        # index=False means default index of dataframe is not stored in excel sheet
+                        df.to_excel(f'{file_name}.xlsx', index=False)
+                    except:
+                        print()
+                        print("An error occurred while exporting the data to file")
+                        print("-----------------------------------------------------")
+                        print()
+                    else:
+                        print()
+                        print(f"Data exported to {file_name}.xlsx file succesfully ✅")
+                        print("---------------------------------------------------")
+                        print()
+                elif override.lower()=='n':
+                    print()
+                    print("No data exported yet")
+                    print("---------------------------------")
+                
+                else:
+                    print()
+                    print("Choose the input from Y or N\n")
+                    continue
+
+                break
+
+            elif len(override)!=1:
+                print("Choose the input from Y or N\n")
+
+            else:
+                print("Choose the input from Y or N\n")
+
+    else:
+        try:
+            # index=False means default index of dataframe is not stored in excel sheet
+            df.to_excel(f'{file_name}.xlsx', index=False)
+        except:
+            print("An error occurred while exporting the data to file")
+            print("-----------------------------------------------------")
+            print()
+        else:
+            print(f"Data exported to {file_name}.xlsx file succesfully ✅")
+            print("---------------------------------------------------")
+            print()
+
+
+
+def load_data():
+    load_file_name = input("Enter the previously saved filename to load : ")
+    path = f'{load_file_name}.xlsx'
+
+    if os.path.exists(path):
+        try:
+            df = pd.read_excel(f'{load_file_name}.xlsx')
+        except:
+            print(f"An error occurred while importing data from {load_file_name}")
+            print("-----------------------------------------------------")
+            print()
+        else:
+            print(f"Data imported from {load_file_name}.xlsx succesfully ✅")
+            print("---------------------------------------------------")
+            print()
+            return df
+    else:
+        print()
+        print("No such file exists in current directory")
+        print("---------------------------------------------")
+        print()
+
+
+
 def base(df):
 
     while True:
@@ -204,8 +285,9 @@ def base(df):
                            \n2. Update an item \
                            \n3. Display order details \
                            \n4. Export data to excel sheet \
-                           \n5. Clear the screen \
-                           \n6. Exit \
+                           \n5. Load the existing data \
+                           \n6. Clear the screen \
+                           \n7. Exit \
                            \nSelect the option number : ''')
         
         # This part is to check whether choice is integer or not
@@ -237,15 +319,16 @@ def base(df):
                     print()
                 else:
                     os.system('cls')
-                    df.to_excel('Customer.xlsx')
-                    print("Data exported to excel file succesfully ✅")
-                    print("---------------------------------------------------")
-                    print()
+                    save_data(df)
 
             elif choice==5:
                 os.system('cls')
+                df = load_data()
 
             elif choice==6:
+                os.system('cls')
+
+            elif choice==7:
                 os.system('cls')
                 print("Happy Earning😉")
                 exit()
