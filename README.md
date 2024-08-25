@@ -72,7 +72,8 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
 
 - **Main interface**
 
-![image](https://github.com/user-attachments/assets/5b7259d5-7b8c-4671-88d7-ffc085b1f212)
+![image](https://github.com/user-attachments/assets/732e2260-c80b-48c3-8c2b-88966ac08321)
+
 
 
 
