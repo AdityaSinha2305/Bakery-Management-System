@@ -1,4 +1,16 @@
 # Bakery Management System
+# Customer : Name , order_date , order_name ,quantity
+# Add an item , Update an item -> Quantity
+
+
+# Things to correct 
+'''
+1. If user enter string for numbers
+2. Check for valid data input in add_item and in update
+'''
+
+
+# Menu driven program
 
 import pandas as pd
 import datetime
@@ -23,9 +35,9 @@ def add_item():
                     data = {
                         'Name' : name,
                         'Order_name' : order_name,
-                        'Quantity' : quantity,
-                        'Order_date' : order_dt,
-                        'Amount' : amount
+                        'Quantity' : int(quantity),
+                        'Amount' : int(amount),
+                        'Order_date' : order_dt
                     }
 
                     # once data is valid come out of loop
@@ -98,7 +110,8 @@ def update(df):
                                 if order_id.isnumeric():
                                     order_id = int(order_id)
                                     if order_id in list(df.index):
-                                        print(df.iloc[[order_id]])
+                                        center_aligned_df = df.style.set_properties(**{'text-align': 'center'})
+                                        print(center_aligned_df.iloc[[order_id]])
                                         print("---------------------------------------------------------------------------")
                                         print()
                                     else:
@@ -190,9 +203,8 @@ def update(df):
 def display(df):
     if df.empty:
         print("Nothing to display yet..add item first")
-    else:    
+    else:
         print(df)
-
 
 
 def base(df):
@@ -201,7 +213,7 @@ def base(df):
         choice = input('''Welcome to Bakery Management System🍔🍟🎂 \
                            \n1. Add an item \
                            \n2. Update an item \
-                           \n3. Display order list \
+                           \n3. Display order details \
                            \n4. Export data to excel sheet \
                            \n5. Clear the screen \
                            \n6. Exit \
@@ -236,7 +248,7 @@ def base(df):
                     print()
                 else:
                     os.system('cls')
-                    df.to_csv('Customer.csv')
+                    df.to_excel('Customer.xlsx')
                     print("Data exported to excel file succesfully ✅")
                     print("---------------------------------------------------")
                     print()
