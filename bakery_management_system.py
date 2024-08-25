@@ -5,7 +5,7 @@ import datetime
 import os
 
 
-def add_item():
+def add_item(df):
     ch = input("Press 1 to continue or Press 0 to go back to main menu : ")
 
     if ch.isnumeric():
@@ -20,7 +20,9 @@ def add_item():
                 amount = input("Enter the amount of order : ")
                 
                 if name.isalpha() and order_name.isalpha() and quantity.isnumeric() and amount.isnumeric():
+                    order_id = len(df)+1
                     data = {
+                        'Order_id' : order_id,
                         'Name' : name,
                         'Order_name' : order_name,
                         'Quantity' : int(quantity),
@@ -97,9 +99,8 @@ def update(df):
                                 order_id = input("Enter the order_id you want to see detail : ")
                                 if order_id.isnumeric():
                                     order_id = int(order_id)
-                                    if order_id in list(df.index):
-                                        center_aligned_df = df.style.set_properties(**{'text-align': 'center'})
-                                        print(center_aligned_df.iloc[[order_id]])
+                                    if order_id in list(df['Order_id']):
+                                        print(df[df['Order_id']==order_id])
                                         print("---------------------------------------------------------------------------")
                                         print()
                                     else:
@@ -116,7 +117,8 @@ def update(df):
                             
                         elif update_choice==3:
                             print()
-
+                            # Order_id is set as index so that updation can be done based on order_id
+                            df.set_index('Order_id',inplace=True)
                             while True:
                                 index = input("Enter the order id you want to update : ")
                                 col = input("Enter the column you want to update : ")         
@@ -152,7 +154,10 @@ def update(df):
                                     print("Enter the valid data for each input.")
                                     print("---------------------------------------")
                                     print()
-                        
+
+                            # Once order is updated based on order_id as index then index is set back to default inedx of dataframe
+                            df.reset_index(inplace=True)
+
                         elif update_choice==4:
                             print("-------------------------------------------------")
                             break
@@ -295,8 +300,14 @@ def base(df):
             choice = int(choice)
             if choice==1:
                 os.system('cls')
-                new_df = add_item()
+                new_df = add_item(df)
+
+                # ignore_index=True parameter makes sure that the appended row gets an appropriate new index.
                 df = df._append(new_df, ignore_index=True)
+                
+                # # Sets custom column as index
+                # df.set_index('Order_id',inplace=True)
+
                 print()
 
             elif choice==2:
