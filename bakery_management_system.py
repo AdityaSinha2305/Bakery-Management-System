@@ -1,16 +1,5 @@
 # Bakery Management System
-# Customer : Name , order_date , order_name ,quantity
-# Add an item , Update an item -> Quantity
 
-
-# Things to correct 
-'''
-1. If user enter string for numbers
-2. Check for valid data input in add_item and in update
-'''
-
-
-# Menu driven program
 
 import pandas as pd
 import datetime
