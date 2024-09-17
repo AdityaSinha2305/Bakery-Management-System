@@ -284,29 +284,36 @@ def load_data():
 
 
 def invoice(df, menu_df):
-    invoice_df = pd.merge(df , menu_df , on="Item Name")
 
-    # Total Price = Quantity * Price
-    invoice_df["Total Price"] = invoice_df["Quantity"] * invoice_df["Price (INR)"]
+    # If dataframe (df) is not empty then generate the invoice otherwise no invoice will be generated
+    if not df.empty and not menu_df.empty:
+        invoice_df = pd.merge(df , menu_df , on="Item Name")
 
-    # Grand Total = Sum of all Total Price
-    grand_total = invoice_df["Total Price"].sum()
+        # Total Price = Quantity * Price
+        invoice_df["Total Price"] = invoice_df["Quantity"] * invoice_df["Price (INR)"]
 
-    # Creating a new row for grand total cell
-    grand_total_row = pd.DataFrame([['','','','','','Grand Total',grand_total]] , columns=['Order_id','Name','Item Name','Quantity','Order_date','Price (INR)','Total Price'])
+        # Grand Total = Sum of all Total Price
+        grand_total = invoice_df["Total Price"].sum()
+
+        # Creating a new row for grand total cell
+        grand_total_row = pd.DataFrame([['','','','','','Grand Total',grand_total]] , columns=['Order_id','Name','Item Name','Quantity','Order_date','Price (INR)','Total Price'])
+        
+        # To add grand_total as a row in dataframe in final invoice
+        final_invoice_df = pd.concat([invoice_df , grand_total_row] , ignore_index=True)
+
+        # Move order_date column to the rightest side in dataframe
+        final_invoice_df = final_invoice_df[['Order_id','Name','Item Name','Quantity','Price (INR)','Total Price','Order_date']]
+
+        # Saving dataframe into excel
+        final_invoice_df.to_excel('Customer_invoice.xlsx', index=False)
+        print("Invoice generated and stored in excel format successfully ✅")
+        print()
+
+        # Returning a dataframe without index column i.e which starst from 0
+        return print(final_invoice_df.to_string(index=False))
     
-    # To add grand_total as a row in dataframe in final invoice
-    final_invoice_df = pd.concat([invoice_df , grand_total_row] , ignore_index=True)
-
-    # Move order_date column to the rightest side in dataframe
-    final_invoice_df = final_invoice_df[['Order_id','Name','Item Name','Quantity','Price (INR)','Total Price','Order_date']]
-
-    # Saving dataframe into excel
-    final_invoice_df.to_excel('Customer_invoice.xlsx', index=False)
-    print("Invoice generated and stored in excel format successfully ✅")
-
-    # Returning a dataframe without index column i.e which starst from 0
-    return final_invoice_df.to_string(index=False)
+    else:
+        print("No items added yet🤔..why you want to pay bill without buying anything😅")
 
 
 # For using pdf format
@@ -314,65 +321,69 @@ from fpdf import FPDF
 
 def download_invoice(df , menu_df):
 
-    invoice_df = pd.merge(df , menu_df , on="Item Name")
+    if not df.empty and not menu_df.empty:
+        invoice_df = pd.merge(df , menu_df , on="Item Name")
 
-    # Total Price = Quantity * Price
-    invoice_df["Total Price"] = invoice_df["Quantity"] * invoice_df["Price (INR)"]
+        # Total Price = Quantity * Price
+        invoice_df["Total Price"] = invoice_df["Quantity"] * invoice_df["Price (INR)"]
 
-    # Grand Total = Sum of all Total Price
-    grand_total = invoice_df["Total Price"].sum()
+        # Grand Total = Sum of all Total Price
+        grand_total = invoice_df["Total Price"].sum()
 
 
-    # Step to Generate PDF using FPDF
-    class PDF(FPDF):
-        def header(self):
-            # Add Invoice Header
-            self.set_font('Arial', 'B', 12)
-            self.cell(0, 10, 'Bakery Shop Invoice', 0, 1, 'C')
+        # Step to Generate PDF using FPDF
+        class PDF(FPDF):
+            def header(self):
+                # Add Invoice Header
+                self.set_font('Arial', 'B', 12)
+                self.cell(0, 10, 'Bakery Shop Invoice', 0, 1, 'C')
 
-        def footer(self):
-            # Add Footer (Page Number)
-            self.set_y(-15)
-            self.set_font('Arial', 'I', 8)
-            self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
+            def footer(self):
+                # Add Footer (Page Number)
+                self.set_y(-15)
+                self.set_font('Arial', 'I', 8)
+                self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
 
-        def invoice_body(self, invoice_df, grand_total):
-            # Add Invoice Body
-            self.set_font('Arial', '', 12)
-            self.cell(0, 10, 'Customer Order:', 0, 1)
+            def invoice_body(self, invoice_df, grand_total):
+                # Add Invoice Body
+                self.set_font('Arial', '', 12)
+                self.cell(0, 10, 'Customer Order:', 0, 1)
 
-            # Invoice table header
-            self.cell(50, 10, 'Item Name', 1)
-            self.cell(30, 10, 'Quantity', 1)
-            self.cell(40, 10, 'Price (INR)', 1)
-            self.cell(50, 10, 'Total Price', 1)
-            self.ln()
-
-            # Invoice table body
-            for index, row in invoice_df.iterrows():
-                self.cell(50, 10, row['Item Name'], 1)
-                self.cell(30, 10, str(row['Quantity']), 1)
-                self.cell(40, 10, str(row['Price (INR)']), 1)
-                self.cell(50, 10, str(row['Total Price']), 1)
+                # Invoice table header
+                self.cell(50, 10, 'Item Name', 1)
+                self.cell(30, 10, 'Quantity', 1)
+                self.cell(40, 10, 'Price (INR)', 1)
+                self.cell(50, 10, 'Total Price', 1)
                 self.ln()
 
-            # Grand total
-            self.cell(50, 10, '', 0)
-            self.cell(30, 10, '', 0)
-            self.cell(40, 10, 'Grand Total', 1)
-            self.cell(50, 10, str(grand_total), 1)
-            self.ln()
+                # Invoice table body
+                for index, row in invoice_df.iterrows():
+                    self.cell(50, 10, row['Item Name'], 1)
+                    self.cell(30, 10, str(row['Quantity']), 1)
+                    self.cell(40, 10, str(row['Price (INR)']), 1)
+                    self.cell(50, 10, str(row['Total Price']), 1)
+                    self.ln()
 
-    # Create PDF instance and generate the invoice
-    pdf = PDF()
-    pdf.add_page()
-    pdf.invoice_body(invoice_df, grand_total)
+                # Grand total
+                self.cell(50, 10, '', 0)
+                self.cell(30, 10, '', 0)
+                self.cell(40, 10, 'Grand Total', 1)
+                self.cell(50, 10, str(grand_total), 1)
+                self.ln()
 
-    # Step 7: Save the PDF
-    pdf_output_path = "Customer_invoice.pdf"
-    pdf.output(pdf_output_path)
+        # Create PDF instance and generate the invoice
+        pdf = PDF()
+        pdf.add_page()
+        pdf.invoice_body(invoice_df, grand_total)
 
-    print(f'Invoice downloaded as pdf format successfully ✅')
+        # Step 7: Save the PDF
+        pdf_output_path = "Customer_invoice.pdf"
+        pdf.output(pdf_output_path)
+
+        print(f'Invoice downloaded as pdf format successfully ✅')
+    
+    else:
+        print("You haven't buy anything yet🤔...then why to download the bill😅")
 
 
 
@@ -423,7 +434,7 @@ def base(df):
                 os.system('cls')
                 if df.empty:
                     print("Buddy insert item first then export your data 😄")
-                    print("-------------------------------------------------------")
+                    print("---------------------------------------------------------")
                     print()
                 else:
                     os.system('cls')
@@ -443,22 +454,22 @@ def base(df):
 
                 # Printing the DataFrame without the index
                 print(menu_df.to_string(index=False))
-                print("----------------------------------------------------------------")
+                print("---------------------------------------------------------------------------------")
                 print()
 
             elif choice==7:
                 os.system('cls')
 
                 menu_df = pd.read_excel('Bakery_Menu.xlsx')
-                print(invoice(df , menu_df))
-                print("--------------------------------------------------------------")
+                invoice(df , menu_df)
+                print("--------------------------------------------------------------------------------------------")
                 print()
 
             elif choice==8:
                 os.system('cls')
-
+                menu_df = pd.read_excel('Bakery_Menu.xlsx')
                 download_invoice(df , menu_df)
-                print("-------------------------------------------------------")
+                print("---------------------------------------------------------------------")
                 print()
 
             elif choice==9:
@@ -471,7 +482,7 @@ def base(df):
             else:
                 print()
                 print("Select from above six options only")
-                print("------------------------------------------")
+                print("--------------------------------------------")
                 print()
 
         else:
