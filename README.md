@@ -1,6 +1,6 @@
 # BakeryManagementSystem
 
-Welcome to the Bakery Management System! This project is a simple yet efficient system designed to manage the operations of a bakery. It allows you to add items, update orders, view order details, import data from excel files, and export data to excel files, ensuring that the bakery's workflow is smooth and well-organized.
+Welcome to the Bakery Management System! This project is a simple yet efficient system designed to manage the operations of a bakery. It allows you to add items, update orders, view order details, import data from excel files, export data to excel files, generate and even download invoice, ensuring that the bakery's workflow is smooth and well-organized.
 
 
 <br>
@@ -28,7 +28,9 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
   
 - **View Order Details** : Access comprehensive details about specific orders, including items, quantities, and prices.
 
-- **Export Data** : Export order and inventory data into excel files for external use or backup. 
+- **Export Data** : Export order and inventory data into excel files for external use or backup.
+
+- **Generate Invoice** : Generate and download the invoice of the orders that is being placed.
 
 <br>
 
@@ -46,7 +48,7 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
   
 - **Navigate to the project directory** : cd bakery_management_system
   
-- **Install dependencies** : Make sure you have Python installed on your system. Then, install the required Python libraries: pip install pandas
+- **Install dependencies** : Make sure you have Python installed on your system. Then, install the required Python libraries: pip install pandas fpdf
 
 
 <br>
@@ -65,6 +67,10 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
 
 - **Import Data** : Easily import your bakery data from excel files to quickly populate your inventory or update orders.
 
+- **Generate Invoice** : Generate the invoice for the orders being placed for each customers.
+
+- **Download Invoice** : Download the invoice in pdf format for future references.
+
 
 <br>
 
@@ -74,7 +80,8 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
 
 - **Main interface**
 
-![image](https://github.com/user-attachments/assets/732e2260-c80b-48c3-8c2b-88966ac08321)
+![image](https://github.com/user-attachments/assets/be1ad754-a07a-4fb3-86af-c1612cea0632)
+
 
 
 
