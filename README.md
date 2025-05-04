@@ -1,11 +1,11 @@
-# Bakery Management System
+<h1>Bakery Management System🍔🍟🥤</h1>
 
-Welcome to the Bakery Management System! This project is a simple yet efficient system designed to manage the operations of a bakery. It allows you to add items, update orders, view order details, import data from excel files, export data to excel files, generate and even download invoice, ensuring that the bakery's workflow is smooth and well-organized.
+<p> Welcome to the <strong>Bakery Management System!</strong> This project is a simple yet efficient system designed to manage the operations of a bakery. It allows you to add items, update orders, view order details, import data from excel files, export data to excel files, generate and even download invoice, ensuring that the bakery's workflow is smooth and well-organized. </p>
 
 
 <br>
 
-## Table of Contents
+<h2> Table of Contents </h2>
 
 - Features
   
@@ -20,7 +20,7 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
 <br>
 
 
-## Features
+<h2>Features ✨</h2>
 
 - **Add Item** : Add new bakery items to the inventory.
   
@@ -34,7 +34,7 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
 
 <br>
 
-## Technologies used
+<h2>Technologies Used 🛠️</h2>
 
 - **Python** : The core programming language used to build the system.
   
@@ -44,18 +44,18 @@ Welcome to the Bakery Management System! This project is a simple yet efficient 
 
 ## Installation
 
-- **Clone the repository** : git clone https://github.com/AdityaSinha2305/BakeryManagementSystem.git
+- **Clone the repository** : <pre><code>git clone https://github.com/AdityaSinha2305/BakeryManagementSystem.git</code></pre>
   
-- **Navigate to the project directory** : cd bakery_management_system
+- **Navigate to the project directory** : <pre><code>cd bakery_management_system</code></pre>
   
-- **Install dependencies** : Make sure you have Python installed on your system. Then, install the required Python libraries: pip install pandas fpdf
+- **Install dependencies** : Make sure you have Python installed on your system. Then, install the required Python libraries:<pre><code> pip install pandas fpdf </code></pre>
 
 
 <br>
 
-## Usage
+<h2>Getting Started 🚀</h2>
 
-- **Run the application** : python bakery_management_system.py
+- **Run the application** : <pre><code> python bakery_management_system.py </code></pre>
   
 - **Add Items** : Use the terminal interface to add new bakery items to the system.
   
